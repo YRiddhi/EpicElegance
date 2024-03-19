@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} EpicElegance|Home {% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- search sidebar starts here -->
+        <div class="col-md-3 p-3">
+            <div>
+                <h5 class="mt-2">Search By Category</h5>
+                <hr>
+                <a href="#">Clothes</a><br>
+                <a href="#">Mobiles</a><br>
+                <a href="#">Shoes</a><br>
+                <a href="#">Electronics</a><br>
+            </div>
+            <div>
+                <h5 class="mt-2">Search By Price Range</h5>
+                <hr>
+                <input type="number" name="min" placeholder="Min Price"><br><br>
+                <input type="number" name="max" placeholder="Max Price"><br><br>
+                <input type="submit" value="Submit" class="btn btn-danger"><br><br>
+            </div>
+            <div>
+                <h5 class="mt-2">Search By Price</h5>
+                <hr>
+                <a href="#">Low to High</a><br>
+                <a href="#">High to Low</a><br>
+            </div>
+        </div>
+        <!-- search sidebar ends here -->
+
+        <!-- card starts here -->
+        <div class="col-md-9 p-3">
+            <div class="row">
+            {% for x in object_list %}
+                <div class="col-md-3" p-3>
+                    <div class="card" style="width: 15rem; height: 21rem;">
+                        <img src="{{x.image.url}}" class="card-img-top" alt="..." style="width: 237px; height: 180px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{x.productname}}</h5>
+                            <p class="card-text">{{x.description}}</p>
+                            <a href="/ProductUpdate/{{x.pk}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+                            <a href="/ProductRemove/{{x.pk}}" class="btn btn-primary">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+       <!-- card ends here -->
+    </div>
+</div>
+{% endblock %}

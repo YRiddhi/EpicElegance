@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %} EpicElegance|Cart {% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- cart starts here -->
+        <div class="col-md-9 p-3">
+            <div class="row">
+            {% for x in allcarts %}
+                <div class="col-md-3" p-3>
+                    <div class="card" style="width: 15rem; height: 30rem;">
+                        <img src="{{x.productid.image.url}}" class="card-img-top" alt="..." style="width: 237px; height: 180px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{x.productid.productname}}</h5>
+                            <p class="card-text">{{x.productid.description}}</p>
+                            <p class="card-text">{{x.productid.category}}</p>
+                            <b class="card-text">{{x.productid.price}}/-</b><br><br>
+                            <p>
+                                <strong>Qty:</strong>
+                                <a href="/updateqty/0/{{x.productid.productid}}"><button type="button" class="btn btn-danger">-</button></a>&nbsp;
+                                <input type="number" value="{{x.qty}}" style="width: 40px; height: 35px;">&nbsp;
+                                <a href="/updateqty/1/{{x.productid.productid}}"><button type="button" class="btn btn-success">+</button></a>
+                            </p>
+                                <a href="/removecart/{{x.productid.productid}}" class="btn btn-primary">Remove</a>&nbsp;&nbsp;
+                                <a href="#" class= "btn btn-primary">Checkout</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <!-- cart ends here -->
+
+        <!-- total section starts here -->
+        <div class="col-md-3">
+            <div class="row">
+                <h5 class="btn-danger text-white">Total Items Section</h5>
+                <p><strong>Total Items: {{totalitems}}</strong></p>
+                <hr>
+                <p><strong>Total Amount:Rs. {{totalamt}}</strong></p>
+                <a href="{% url 'payment' %}"><button class="btn btn-danger">Make Payment</button></a>
+            </div>
+        </div>
+        <!-- total section ends here -->
+    </div>
+</div>
+{% endblock %}

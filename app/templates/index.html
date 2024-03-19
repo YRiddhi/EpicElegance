@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %} EpicElegance|Home {% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        {% if query %}
+            <center>
+                <h5>Search result for:<strong>{{query}}</strong></h5>
+            </center>
+        {% endif %}
+        <!-- search sidebar starts here -->
+        <div class="col-md-3 p-3">
+            <div>
+                <h5 class="mt-2">Search By Category</h5>
+                <hr>
+                <a href="{% url 'clotheslist' %}">Clothes</a><br>
+                <a href="{% url 'mobileslist' %}">Mobiles</a><br>
+                <a href="{% url 'shoeslist' %}">Shoes</a><br>
+                <a href="{% url 'electronicslist' %}">Electronics</a><br>
+            </div>
+            <div>
+                <h5 class="mt-2">Search By Price Range</h5>
+                <hr>
+                <form action="{% url 'showpricerange' %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" name="min" placeholder="Min Price"><br><br>
+                    <input type="number" name="max" placeholder="Max Price"><br><br>
+                    <input type="submit" value="Submit" class="btn btn-danger"><br><br>
+                </form>
+            </div>
+            <div>
+                <h5 class="mt-2">Search By Price</h5>
+                <hr>
+                <a href="{% url 'sortproducts' %}?sort=low to high">Low to High</a><br>
+                <a href="{% url 'sortproducts' %}?sort=high to low">High to Low</a><br>
+            </div>
+        </div>
+        <!-- search sidebar ends here -->
+        <!-- card starts here -->
+        <div class="col-md-9 p-3">
+            <div class="row">
+            {% for x in allproducts %}
+                <div class="col-md-3" p-3>
+                    <div class="card" style="width: 15rem; height: 26rem;">
+                        <img src="{{x.image.url}}" class="card-img-top" alt="..." style="width: 237px; height: 180px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{x.productname}}</h5>
+                            <p class="card-text">{{x.description}}</p>
+                            <p class="card-text">{{x.category}}</p>
+                            <b class="card-text">{{x.price}}/-</b><br><br>
+                                <a href="/addcart/{{x.productid}}" class="btn btn-primary">Add to Cart</a>&nbsp;
+                                <a href="/addcart/{{x.productid}}" class= "btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+       <!-- card ends here -->
+    </div>
+</div>
+{% endblock %}
+
+
+<!-- pending topics:
+contact, about (complete) -->
